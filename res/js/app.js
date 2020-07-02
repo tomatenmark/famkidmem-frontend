@@ -2,7 +2,8 @@ Vue.config.devtools = config.vueDevToolsEnabled;
 
 
 const data = {
-    menuOpen: false
+    menuOpen: false,
+    loggedIn: true
 };
 
 const methods = {

@@ -65,3 +65,22 @@ header img {
 #menu-close div:last-child {
     transform: rotateZ(-45deg);
 }
+
+#menu {
+    position: fixed;
+    width: 100%;
+    background: #6a6264;
+    top: 30px;
+    right: 0;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    max-width: 500px;
+}
+
+#menu div {
+    color: white;
+    font-size: 1.5rem;
+    padding: 5px;
+    border-bottom: 1px black solid;
+    cursor: pointer;
+}
