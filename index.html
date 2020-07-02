@@ -9,8 +9,33 @@
     <meta property="og:image" content="/res/img/og.png">
     <meta property="og:image:secure_url" content="/res/img/og.png">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/res/css/general.css">
+    <script src="/res/js/config.js"></script>
+    <script src="/res/js/vue-core.js"></script>
 </head>
 <body>
-<noscript>Family Moments erfordert JavaScript. Bitte aktiviere JavaScript in deinen Browsereinstellungen.</noscript>
+    <div id="app">
+        <header>
+            <img src="/res/img/logo.png" alt="">
+            <div id="menu">
+                <div id="menu-open" v-if="!menuOpen" @click="menuOpen=true">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="menu-close" v-if="menuOpen" @click="menuOpen=false">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div v-if="menuOpen">
+                Ich bin ein Menu
+            </div>
+        </header>
+    </div>
+
+    <script src="/res/js/app.js"></script>
+
+    <noscript>Family Moments erfordert JavaScript. Bitte aktiviere JavaScript in deinen Browsereinstellungen.</noscript>
 </body>
 </html>
