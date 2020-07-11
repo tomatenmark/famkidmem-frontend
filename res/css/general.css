@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     font-size: 1em;
     background: #efefef;
+    font-family: Arial, sans-serif;
 }
 
 *{
@@ -72,15 +73,241 @@ header img {
     background: #6a6264;
     top: 30px;
     right: 0;
-    border-left: 1px black solid;
-    border-right: 1px black solid;
     max-width: 500px;
 }
 
 #menu div {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     padding: 5px;
     border-bottom: 1px black solid;
     cursor: pointer;
+}
+
+#menu div:hover, #menu div:focus {
+    background: #847C7E;
+}
+
+#main {
+    margin-top: 30px;
+    padding: 7px;
+}
+
+#dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.7;
+}
+
+#dialog > div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    max-width: 600px;
+    background: #ededed;
+    border: 2px silver solid;
+    border-radius: 5px;
+    transform: translate(-50%,-50%);
+}
+
+#dialog > div > div {
+    padding: 10px;
+    font-size: 1.3rem;
+}
+
+#dialog > div > div.error {
+    color: #a70000;
+}
+
+#dialog > div > button {
+    margin: 10px;
+}
+
+#processingBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#processingAnimation, #processingEndAnimation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+}
+
+#processingAnimation {
+    background: #016b70;
+    border-left: 0 #00989f solid;
+    border-right: 0 #00989f solid;
+    animation: animateProcessing 2s linear infinite alternate;
+}
+
+#processingEndAnimation {
+    background: green;
+    border-left: 0 #00b100 solid;
+    opacity: 0;
+    animation: animateProcessingEnd 0.5s linear 1;
+}
+
+@keyframes animateProcessing {
+    0%   {
+        border-left-width: 0;
+        border-right-width: 0;
+    }
+    50%  {
+        border-left-width: 100vw;
+        border-right-width: 0;
+    }
+    51%  {
+        border-left-width: 100vw;
+        border-right-width: 100vw;
+    }
+    52%  {
+        border-left-width: 0;
+        border-right-width: 100vw;
+    }
+    100% {
+        border-left-width: 0;
+        border-right-width: 0;
+    }
+}
+
+@keyframes animateProcessingEnd {
+    0%   {
+        border-left-width: 0;
+        opacity: 0;
+    }
+    1%   {
+        border-left-width: 0;
+        opacity: 1;
+    }
+    100% {
+        border-left-width: 100vw;
+        opacity: 1;
+    }
+}
+
+input[type="text"], input[type="password"] {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 5px;
+    border: 1px #b0cbff solid;
+    border-radius: 10px;
+    background: white;
+    color: #8a8a8a;
+    font-size: 1.5rem;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px #2196F3 solid;
+    color: black;
+}
+
+button {
+    display: block;
+    margin: 10px 0;
+    width: 50%;
+    max-width: 250px;
+    height: 35px;
+    background: #2196F3;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.3rem;
+}
+
+button:hover, button:focus, button:active {
+    background: #b0cbff;
+    color: black;
+}
+
+button.ok {
+    width: 50px;
+}
+
+button.link {
+    display: inline;
+    width: auto;
+    height: auto;
+    background: none;
+    color: #2196F3;
+    text-decoration: underline;
+}
+
+button.link:hover, button.link:focus, button.link:active {
+    color: #b0cbff;
+}
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkMark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    border: 1px #b0cbff solid;
+    border-radius: 5px;
+}
+
+.container:hover input ~ .checkMark {
+    border: 1px #2196F3 solid;
+}
+
+.container input:checked ~ .checkMark {
+    background-color: #2196F3;
+}
+
+.checkMark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkMark:after {
+    display: block;
+}
+
+.container .checkMark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

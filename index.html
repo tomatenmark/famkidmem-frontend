@@ -1,5 +1,5 @@
 <!Doctype html>
-<html lang="de">
+<html lang="de" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>Family Moments</title>
     <meta charset="UTF-8">
@@ -12,31 +12,101 @@
     <link rel="stylesheet" type="text/css" href="/res/css/general.css">
     <script src="/res/js/config.js"></script>
     <script src="/res/js/vue-core.js"></script>
+    <script src="/res/js/vue-resource.js"></script>
+    <script src="/res/js/crypto/aes.js"></script>
+    <script src="/res/js/crypto/enc-base64-min.js"></script>
+    <script src="/res/js/crypto/mode-ecb-min.js"></script>
+    <script src="/res/js/crypto/pad-nopadding-min.js"></script>
+    <script src="/res/js/crypto/pbkdf2.js"></script>
 </head>
 <body>
     <div id="app">
         <header>
             <img src="/res/img/logo.png" alt="">
             <div>
-                <div id="menu-open" v-if="!menuOpen && loggedIn" @click="menuOpen=true">
+                <div id="menu-open" v-if="!menuOpen" @click="menuOpen=true">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
-                <div id="menu-close" v-if="menuOpen && loggedIn" @click="menuOpen=false">
+                <div id="menu-close" v-if="menuOpen" @click="menuOpen=false">
                     <div></div>
                     <div></div>
                 </div>
             </div>
-            <div v-if="menuOpen && loggedIn" id="menu">
-                <div>Test-Eintrag 1</div>
-                <div>Test-Eintrag 2</div>
-                <div>Test-Eintrag 3</div>
+            <div v-if="menuOpen" id="menu">
+                <div v-if="loggedIn" @click="logoutLocal()">In diesem Browser ausloggen</div>
+                <div v-if="loggedIn" @click="logoutGlobal()">Überall ausloggen</div>
+                <div v-if="loggedIn" @click="prepareChangeUsername()">Benutzername ändern</div>
+                <div v-if="loggedIn" @click="prepareChangePassword()">Passwort ändern</div>
+                <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;">Registrieren</div>
             </div>
         </header>
+
+        <div id="main">
+
+            <!-- login -->
+            <div v-if="view === 'login'">
+                <input type="text" placeholder="Benutzername" v-model="username">
+                <input type="password" placeholder="Passwort" v-model="password">
+                <label class="container">Eingeloggt bleiben
+                    <input type="checkbox" v-model="permanentLogin">
+                    <span class="checkMark"></span>
+                </label>
+                <button type="button" @click="login()">Einloggen</button>
+                <button type="button" @click="showInfo('Sage mir bescheid. Dann kann ich dein Passwort zurücksetzen')" class="link">Passwort vergessen</button>
+            </div>
+
+            <!-- init/register -->
+            <div v-if="view === 'init'">
+                <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
+                <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
+                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
+                <button type="button" @click="register()">Registrieren</button>
+            </div>
+
+            <!-- changeUsername -->
+            <div v-if="view === 'changeUsername'">
+                <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername">
+                <button type="button" @click="changeUsername()">Jetzt ändern</button>
+                <button type="button" @click="clearSensitiveDataAndBackToIndexView()">Abbrechen</button>
+            </div>
+
+            <!-- changePassword -->
+            <div v-if="view === 'changePassword' || view === 'reset'">
+                <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
+                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
+                <button type="button" @click="changePassword()">Jetzt ändern</button>
+                <button type="button" @click="clearSensitiveDataAndBackToIndexView()" v-if="view === 'changePassword'">Abbrechen</button>
+            </div>
+        </div>
+
+
+        <!-- dialogs -->
+        <div id="dialog" v-if="dialog!==null" @click="dialog=null">
+            <div>
+                <div v-bind:class="dialog.error ? 'error' : ''">{{dialog.text}}</div>
+                <button type="button" class="ok" @click="dialog=null">OK</button>
+            </div>
+        </div>
+
+        <!-- for copy error info -->
+        <textarea style="display: none;" title="" id="errorDetails"></textarea>
+
+        <!-- processing -->
+        <div id="processingBg" v-if="processing"></div>
+        <div id="processingAnimation" v-if="processing"></div>
+        <div id="processingEndAnimation" v-if="processingEnd"></div>
+        <!--<img id="processCircle" src="/res/img/process.svg" alt="" v-bind:class="processing ? 'enabled' : ''">-->
     </div>
 
-    <script src="/res/js/app.js"></script>
+
+
+    <script src="/res/js/app/app-processing.js"></script>
+    <script src="/res/js/app/app-requests.js"></script>
+    <script src="/res/js/app/app-dialog.js"></script>
+    <script src="/res/js/app/app-user.js"></script>
+    <script src="/res/js/app/app.js"></script>
 
     <noscript>Family Moments erfordert JavaScript. Bitte aktiviere JavaScript in deinen Browsereinstellungen.</noscript>
 </body>
