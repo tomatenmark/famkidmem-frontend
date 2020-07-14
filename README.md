@@ -27,6 +27,6 @@ CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 **This software is for privacy, not to hide crime. Please do not use it to encrypt your illegal contents. Thank you**
 
 # Credits
-* Spring boot and Vue.js
-* javax.crypto and crypto-js
-* FFmpeg and HLS
+* Vue.js
+* crypto-js
+* HLS
