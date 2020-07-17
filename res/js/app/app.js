@@ -15,11 +15,18 @@ const data = {
     passwordKeySalt: '',
     masterKey: '',
     userKey: '',
-    videoDesignator: '',
     permanentLogin: false,
     dialog: null,
     processing: false,
-    processingEnd: false
+    processingEnd: false,
+    videos: [],
+    persons: [],
+    years: [],
+    videoMap: null,
+    videoIndexReady: false,
+    filterMap: null,
+    video: false,
+    videoLink: ''
 };
 
 const methods = {
@@ -32,7 +39,11 @@ const methods = {
     logoutLocal: function (){logout(false)},
     logoutGlobal: function (){logout(true)},
     showInfo: function (text){showInfo(text)},
-    clearSensitiveDataAndBackToIndexView: function () {cancelChangeCredential()}
+    clearSensitiveDataAndBackToIndexView: function () {cancelChangeCredential()},
+    initPlayVideo: function (title) {initPlayVideo(title)},
+    closeVideo: function () {closeVideo()},
+    showDate: function (timestamp, showDateValues) { return showDate(timestamp, showDateValues)},
+    showDuration: function (durationInSeconds) { return showDuration(durationInSeconds)}
 };
 
 app = new Vue({
@@ -50,11 +61,11 @@ function init(){
         login();
     }
     if(hashKey === 'video'){
-        startProcessingAnimation();
-        setVideoLinkValues();
+        app.videoLink = location.hash.substring(location.hash.indexOf('/')+1);
     }
 
     initView(hashKey);
+    document.getElementById('app').style.display = 'block';
 }
 
 function initView(hashKey){
@@ -70,8 +81,11 @@ function initView(hashKey){
         app.permanentLogin = loggedInPermanent;
     }
 
-    if(hashKey === 'video' || hashKey === 'init' || hashKey === 'reset'){
+    if(hashKey === 'init' || hashKey === 'reset'){
         app.view = hashKey;
+        clearIndex();
+    } else if(loggedIn){
+        loadIndex();
     }
 }
 
@@ -83,12 +97,6 @@ function setUserLinkValues(){
     app.username = userObject.username;
     app.password = userObject.password;
     app.userKey = userObject.userKey;
-}
-
-function setVideoLinkValues(){
-    const hashValue = location.hash.substring(location.hash.indexOf('/')+1);
-    const binary = CryptoJS.enc.Base64.parse(hashValue);
-    app.videoDesignator = CryptoJS.enc.Utf8.stringify(binary);
 }
 
 window.addEventListener("load", init);

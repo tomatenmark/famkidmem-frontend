@@ -33,14 +33,12 @@ function copyErrorDetails(response){
 }
 
 function doGetRequest(path, callback, lastStep){
-    startProcessingAnimation();
     app.$http.get(config.apiBase+path).then(function (response) {
         handleRequestSuccess(response, callback, lastStep);
     }, handleRequestError);
 }
 
 function doPostRequest(path, data, callback, lastStep){
-    startProcessingAnimation();
     app.$http.post(config.apiBase+path, JSON.stringify(data)).then(function (response) {
         handleRequestSuccess(response, callback, lastStep);
     }, handleRequestError);

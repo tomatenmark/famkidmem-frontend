@@ -21,6 +21,7 @@ const changePasswordCallback = function(){
 };
 
 function prepareChangePassword(){
+    startProcessingAnimation();
     getUserKey(setPreparedChangePassword);
 }
 
@@ -43,6 +44,7 @@ function getUserKey(callback){
 }
 
 function login(){
+    startProcessingAnimation();
     const loginHash = createLoginHash();
     const data = {
         username: app.username,
@@ -57,7 +59,6 @@ function setLogin(data){
         app.accessToken = data.accessToken;
         app.passwordKeySalt = data.passwordKeySalt;
         app.passwordKey = createPasswordKey();
-        app.accessToken = data.accessToken;
         const storage = app.permanentLogin ? localStorage : sessionStorage;
         storage.setItem('accessToken', app.accessToken);
         storage.setItem('username', app.username);
@@ -68,6 +69,7 @@ function setLogin(data){
         }
         if(app.view !== 'reset' && app.view !== 'init'){
             app.view = 'index';
+            loadIndex();
         }
         app.loggedIn = true;
     }
@@ -86,6 +88,7 @@ function register(){
 
 
 function changeUsername(){
+    startProcessingAnimation();
     const data = {
         accessToken: app.accessToken,
         newUsername: app.newUsername
@@ -104,14 +107,14 @@ function changePassword(){
 }
 
 function createDataForChangePassword(){
-    const loginHash = createLoginHash();
-    const passwordKeySalt = createPasswordKeySalt();
     const passwordKeyOld = app.passwordKey;
+    const loginHash = createLoginHash();
+    app.passwordKeySalt = createPasswordKeySalt();
     const passwordKey = createPasswordKey();
     const userKey = createUserKey(passwordKeyOld, passwordKey);
     return {
         newLoginHash: loginHash,
-        newPasswordKeySalt: passwordKeySalt,
+        newPasswordKeySalt: app.passwordKeySalt,
         newMasterKey: userKey
     }
 }
@@ -134,6 +137,7 @@ function checkPassword(){
 }
 
 function logout(global){
+    startProcessingAnimation();
     app.menuOpen = false;
     const data = {
         accessToken: app.accessToken,
@@ -152,6 +156,7 @@ function setLogout(){
     app.username = '';
     app.accessToken = '';
     clearSensitiveData();
+    clearIndex();
 }
 
 function cancelChangeCredential(){
@@ -172,7 +177,9 @@ function userModificationCallback(text){
     app.view = 'index';
 }
 
-function createUserKey(passwordKeyOld, passwordKey){
+function createUserKey(passwordKeyOldBase64, passwordKeyBase64){
+    const passwordKeyOld = CryptoJS.enc.Base64.parse(passwordKeyOldBase64);
+    const passwordKey = CryptoJS.enc.Base64.parse(passwordKeyBase64);
     const masterKeyEncrypted = CryptoJS.enc.Base64.parse(app.userKey);
     const masterKey = CryptoJS.AES.decrypt({ciphertext:masterKeyEncrypted}, passwordKeyOld,{mode:CryptoJS.mode.ECB, padding: CryptoJS.pad.NoPadding});
     const newUserKey = CryptoJS.AES.encrypt(masterKey, passwordKey,{mode:CryptoJS.mode.ECB, padding: CryptoJS.pad.NoPadding});
@@ -181,7 +188,8 @@ function createUserKey(passwordKeyOld, passwordKey){
 
 function createPasswordKey(){
     const passwordKeySalt =  CryptoJS.enc.Base64.parse(app.passwordKeySalt);
-    const passwordKey = CryptoJS.PBKDF2(app.password, passwordKeySalt, {keySize: 128 / 32, iterations: 2500});
+    const password = CryptoJS.enc.Utf8.parse(app.password);
+    const passwordKey = CryptoJS.PBKDF2(password, passwordKeySalt, {keySize: 128 / 32, iterations: 2500});
     return CryptoJS.enc.Base64.stringify(passwordKey);
 }
 
