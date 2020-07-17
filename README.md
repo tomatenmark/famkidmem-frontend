@@ -1,12 +1,8 @@
 # FamKidMem (Family Moments)
 'Selbstgedrehte Videos'
 
-# famkidmem-frontend
+# Frontend
 This repository contains the sources for the Web-Frontend.
-
-
-# CCMS
-This repository contains the sources for the FamKidMem Control & Content Management System.\
 
 # Requirements
 ## HLS support

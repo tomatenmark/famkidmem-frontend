@@ -25,6 +25,10 @@ header img {
     margin-top: -1px;
 }
 
+#app {
+    display: none;
+}
+
 #menu-open {
     position: fixed;
     top: -1px;
@@ -310,4 +314,71 @@ button.link:hover, button.link:focus, button.link:active {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+#videos {
+    display: table;
+    width: 100%;
+    max-width: 500px;
+    border-spacing: 0 10px;
+}
+
+.videoItem {
+    display: table-row;
+    background: #e3e3e3;
+    border-radius: 15px;
+    padding: 5px;
+    height: 116px;
+    overflow-y: hidden;
+    cursor: pointer;
+}
+
+.videoItem .thumbnail, .videoItem .text {
+    display: table-cell;
+    padding: 5px;
+}
+
+.videoItem .text {
+    vertical-align: top;
+}
+
+.videoItem .thumbnail img {
+    width: 80px;
+    height: 80px;
+}
+
+.videoItem .text h3.title {
+    margin: 0;
+    font-size: 0.9rem;
+    max-height: 36px;
+    overflow: hidden;
+}
+
+.videoItem .text .description {
+    max-height: 67px;
+    overflow: hidden;
+    font-size: 0.8rem;
+}
+
+.date, .duration {
+    font-size: 0.7rem;
+}
+
+#videoBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.7;
+}
+
+#video {
+    position: fixed;
+    width: 98%;
+    max-width: 490px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

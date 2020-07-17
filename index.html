@@ -11,6 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/res/css/general.css">
     <script src="/res/js/config.js"></script>
+    <script src="/res/js/hls.js"></script>
     <script src="/res/js/vue-core.js"></script>
     <script src="/res/js/vue-resource.js"></script>
     <script src="/res/js/crypto/aes.js"></script>
@@ -79,6 +80,29 @@
                 <button type="button" @click="changePassword()">Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()" v-if="view === 'changePassword'">Abbrechen</button>
             </div>
+
+            <!-- videoIndex -->
+            <div v-if="view === 'index' && videoIndexReady" id="videos">
+                <div class="videoItem" v-for="video in videos" @click="initPlayVideo(video.title)">
+                    <div class="thumbnail">
+                        <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
+                        <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
+                        <img src="/res/img/thumbnail-placeholder.png" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
+                        <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
+                    </div>
+                    <div class="text">
+                        <h3 class="title">{{videoMap[video.title].decryptedTitle}}</h3>
+                        <div class="description">{{videoMap[video.title].decryptedDescription}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- video -->
+            <div v-if="video">
+                <div id="videoBackground" @click="closeVideo()" ></div>
+                <video id="video" autoplay controls></video>
+            </div>
+
         </div>
 
 
@@ -105,6 +129,7 @@
     <script src="/res/js/app/app-requests.js"></script>
     <script src="/res/js/app/app-dialog.js"></script>
     <script src="/res/js/app/app-user.js"></script>
+    <script src="/res/js/app/app-video.js"></script>
     <script src="/res/js/app/app.js"></script>
 
     <noscript>Family Moments erfordert JavaScript. Bitte aktiviere JavaScript in deinen Browsereinstellungen.</noscript>
