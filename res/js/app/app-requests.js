@@ -17,19 +17,11 @@ function handleRequestError(response) {
     } else if(response.data.details.indexOf('You are not allowed') >= 0){
         setLogout();
     } else {
-        copyErrorDetails(response);
+        copyText(JSON.stringify('Fehler bei den Family Moments. Response stringified: ' + response));
         showError('Da ist etwas schief gelaufen. Details zum Fehler wurden in die Zwischenablage kopiert. ' +
             'Füge sie in WhatsApp ein und schicke sie mir, damit ich der Sache auf den Grund gehen kann.');
     }
     stopProcessingAnimation();
-}
-
-function copyErrorDetails(response){
-    document.getElementById('errorDetails').value = 'Fehler bei den Family Moments. Response stringified: ' + JSON.stringify(response);
-    const copyText = document.getElementById('errorDetails');
-    copyText.select();
-    copyText.setSelectionRange(0, 100000); /*For mobile devices*/
-    document.execCommand("copy");
 }
 
 function doGetRequest(path, callback, lastStep){

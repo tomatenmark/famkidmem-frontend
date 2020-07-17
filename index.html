@@ -101,6 +101,7 @@
             <div v-if="video">
                 <div id="videoBackground" @click="closeVideo()" ></div>
                 <video id="video" autoplay controls></video>
+                <button type="button" id="shareBtn" @click="share()">Video-Link senden</button>
             </div>
 
         </div>
@@ -114,8 +115,8 @@
             </div>
         </div>
 
-        <!-- for copy error info -->
-        <textarea style="display: none;" title="" id="errorDetails"></textarea>
+        <!-- for copy text -->
+        <textarea title="" id="copyTextArea"></textarea>
 
         <!-- processing -->
         <div id="processingBg" v-if="processing"></div>

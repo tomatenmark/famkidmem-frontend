@@ -382,3 +382,16 @@ button.link:hover, button.link:focus, button.link:active {
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+#shareBtn {
+    position: fixed;
+    font-size: 1.1rem;
+    bottom: -10px;
+    left: 0;
+    border-radius: 0;
+}
+
+#copyTextArea {
+    position: fixed;
+    top: -1000px;
+}

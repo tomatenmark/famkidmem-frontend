@@ -43,7 +43,8 @@ const methods = {
     initPlayVideo: function (title) {initPlayVideo(title)},
     closeVideo: function () {closeVideo()},
     showDate: function (timestamp, showDateValues) { return showDate(timestamp, showDateValues)},
-    showDuration: function (durationInSeconds) { return showDuration(durationInSeconds)}
+    showDuration: function (durationInSeconds) { return showDuration(durationInSeconds)},
+    share: function () { share()}
 };
 
 app = new Vue({
@@ -97,6 +98,14 @@ function setUserLinkValues(){
     app.username = userObject.username;
     app.password = userObject.password;
     app.userKey = userObject.userKey;
+}
+
+function copyText(text){
+    document.getElementById('copyTextArea').value = text;
+    const copTextElement = document.getElementById('copyTextArea');
+    copTextElement.select();
+    copTextElement.setSelectionRange(0, 100000); /*For mobile devices*/
+    document.execCommand("copy");
 }
 
 window.addEventListener("load", init);
