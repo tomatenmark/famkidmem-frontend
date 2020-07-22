@@ -27,6 +27,7 @@ const data = {
     filterMap: null,
     video: false,
     videoLink: '',
+    videoTitle: '',
     search: '',
     filterOpen: false,
     filters: false

@@ -116,6 +116,7 @@ function initPlayVideo(title){
     loadM3u8(title, app.videoMap[title].video.m3u8.filename);
     self.location.href = `#video/${title}`;
     document.title = `${app.videoMap[title].decryptedTitle} - Family Moments`;
+    app.videoTitle = title;
 }
 
 function playVideo(title){
@@ -142,6 +143,7 @@ function closeVideo(){
     document.getElementById('video').src = '';
     self.location.href = '#';
     document.title = 'Family Moments';
+    app.videoTitle = '';
 }
 
 function decryptMeta(ciphertextBase64, keyBase64, ivBase64){
