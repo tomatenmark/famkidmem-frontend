@@ -129,7 +129,7 @@ function playVideo(title){
         hls = new Hls();
         hls.on(Hls.Events.ERROR, function (event, data) {
             error = data;
-            console.log("there was an error with hls");
+            console.error("there was an error with hls: " + JSON.stringify(data));
         });
         hls.loadSource(`data:application/vnd.apple.mpegurl;base64,${app.videoMap[title].m3u8Base64}`);
         hls.attachMedia(video);

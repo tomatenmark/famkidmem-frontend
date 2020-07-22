@@ -136,18 +136,22 @@
 
 
             <!-- video -->
-            <div v-if="video">
+            <div v-show="video">
                 <div id="videoBackground" @click="closeVideo()" ></div>
-                <video id="video" autoplay controls></video>
-                <button type="button" id="shareBtn" @click="share()">Video-Link senden</button>
+                <div id="videoElement">
+                    <div id="videoHeadline" v-if="video">{{app.videoMap[app.videoTitle].decryptedTitle}}</div><!--
+                 --><button type="button" id="shareBtn" @click="share()">sh</button>
+                    <video id="video" autoplay controls></video>
+                </div>
             </div>
 
         </div>
 
 
         <!-- dialogs -->
-        <div id="dialog" v-if="dialog!==null" @click="dialog=null">
-            <div>
+        <div v-if="dialog!==null">
+            <div id="dialogBackground" @click="dialog=null"></div>
+            <div id="dialogElement">
                 <div v-bind:class="dialog.error ? 'error' : ''">{{dialog.text}}</div>
                 <button type="button" class="ok" @click="dialog=null">OK</button>
             </div>

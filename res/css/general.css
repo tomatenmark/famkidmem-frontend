@@ -98,7 +98,7 @@ header img {
     padding: 7px;
 }
 
-#dialog {
+#dialogBackground {
     position: fixed;
     top: 0;
     left: 0;
@@ -106,9 +106,10 @@ header img {
     height: 100%;
     background: black;
     opacity: 0.7;
+    z-index: 1;
 }
 
-#dialog > div {
+#dialogElement {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -118,18 +119,19 @@ header img {
     border: 2px silver solid;
     border-radius: 5px;
     transform: translate(-50%,-50%);
+    z-index: 1;
 }
 
-#dialog > div > div {
+#dialogElement > div {
     padding: 10px;
     font-size: 1.3rem;
 }
 
-#dialog > div > div.error {
+#dialogElement > div.error {
     color: #a70000;
 }
 
-#dialog > div > button {
+#dialogElement > button {
     margin: 10px;
 }
 
@@ -386,23 +388,37 @@ button.link:hover, button.link:active {
     height: 100%;
     background: black;
     opacity: 0.7;
+    z-index: 1;
 }
 
-#video {
+#videoElement {
     position: fixed;
     width: 98%;
     max-width: 490px;
+    max-height: 90%;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    z-index: 1;
+}
+
+#videoHeadline {
+    display: inline-block;
+    width: calc(100% - 50px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+#video {
+    width: 100%;
 }
 
 #shareBtn {
-    position: fixed;
-    font-size: 1.1rem;
-    bottom: -10px;
-    left: 0;
-    border-radius: 0;
+    width: 50px;
+    display: inline;
+    margin: 0 0 3px;
+    background: transparent;
 }
 
 #copyTextArea {
