@@ -1,4 +1,3 @@
-//TODO: test all
 
 function loadIndex(){
     startProcessingAnimation();
@@ -46,7 +45,9 @@ function initVideoMap(masterKey){
             decryptedTitle: decryptMeta(video.title, key, video.key.iv),
             decryptedDescription: decryptMeta(video.description, key, video.key.iv),
             thumbnailBase64: '',
-            m3u8Base64: ''
+            m3u8Base64: '',
+            persons: flattenAttrList(video.persons, 'persons'),
+            years: flattenAttrList(video.years, 'years')
         };
     }
     app.videoIndexReady = true;
@@ -55,6 +56,16 @@ function initVideoMap(masterKey){
         initPlayVideo(app.videoLink);
         app.videoLink = '';
     }
+}
+
+function flattenAttrList(attrList, type){
+    let flatList = [];
+    for(let i = 0; i < attrList.length; i++){
+        let attr = attrList[i];
+        let value = type === 'persons' ? attr.name : attr.value;
+        flatList.push(value);
+    }
+    return flatList;
 }
 
 function loadThumbnails(){
