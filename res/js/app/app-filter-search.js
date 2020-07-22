@@ -107,7 +107,6 @@ function resetAllFilters(){
     resetListFilters(app.persons, app.filterMap.persons);
     resetListFilters(app.years, app.filterMap.years);
     setFiltered();
-    app.filterOpen = false;
 }
 
 function resetListFilters(list, map){
