@@ -26,7 +26,10 @@ const data = {
     videoIndexReady: false,
     filterMap: null,
     video: false,
-    videoLink: ''
+    videoLink: '',
+    search: '',
+    filterOpen: false,
+    filters: false
 };
 
 const methods = {
@@ -44,7 +47,16 @@ const methods = {
     closeVideo: function () {closeVideo()},
     showDate: function (timestamp, showDateValues) { return showDate(timestamp, showDateValues)},
     showDuration: function (durationInSeconds) { return showDuration(durationInSeconds)},
-    share: function () { share()}
+    share: function () { share()},
+    togglePersonFilter: function (person) { togglePersonFilter(person)},
+    toggleYearFilter: function (year) { toggleYearFilter(year)},
+    isFilteredPerson: function (person) { return isFilteredPerson(person)},
+    isFilteredYear: function (year) { return isFilteredYear(year)},
+    resetAllFilters: function () { resetAllFilters()},
+    hasMatchingVideo: function (filter, type) { return hasMatchingVideo(filter, type)},
+    hasPersonFilter: function () { return hasPersonFilter()},
+    hasYearFilter: function () { return hasYearFilter()},
+    isMatch: function (designator) { return isMatch(designator)}
 };
 
 app = new Vue({
