@@ -12,7 +12,6 @@ function setIndex(data){
     initFilterMap();
     initVideoMap(masterKey);
     loadThumbnails();
-    //TODO: maybe preload m3u8, but wait until all thumbnails loaded
 }
 
 function initFilterMap(){
@@ -116,6 +115,7 @@ function initPlayVideo(title){
     app.video = true;
     loadM3u8(title, app.videoMap[title].video.m3u8.filename);
     self.location.href = `#video/${title}`;
+    document.title = `${app.videoMap[title].decryptedTitle} - Family Moments`;
 }
 
 function playVideo(title){
@@ -141,6 +141,7 @@ function closeVideo(){
     app.video = false;
     document.getElementById('video').src = '';
     self.location.href = '#';
+    document.title = 'Family Moments';
 }
 
 function decryptMeta(ciphertextBase64, keyBase64, ivBase64){
