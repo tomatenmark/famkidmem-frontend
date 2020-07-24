@@ -110,15 +110,19 @@
                 </div>
                 <div id="videos" v-if="!filterOpen">
                     <div class="videoItem" v-for="video in videos" v-if="isMatch(video.title)" @click="initPlayVideo(video.title)">
-                        <div class="thumbnail">
-                            <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
-                            <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
-                            <img src="/res/img/thumbnail-placeholder.png" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
-                            <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
-                        </div>
-                        <div class="text">
-                            <h3 class="title">{{videoMap[video.title].decryptedTitle}}</h3>
-                            <div class="description">{{videoMap[video.title].decryptedDescription}}</div>
+                        <div class="videoItem-table">
+                            <div class="videoItem-row">
+                                <div class="videoItem-cell thumbnail">
+                                    <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
+                                    <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
+                                    <img src="/res/img/thumbnail-placeholder.png" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
+                                    <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
+                                </div>
+                                <div class="videoItem-cell text">
+                                    <h3 class="title">{{videoMap[video.title].decryptedTitle}}</h3>
+                                    <div class="description">{{videoMap[video.title].decryptedDescription}}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

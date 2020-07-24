@@ -310,55 +310,63 @@ button.link:hover, button.link:active {
 }
 
 #videos {
-    display: table;
-    width: 100%;
-    max-width: 500px;
-    border-spacing: 0 10px;
-    margin-top: 24px;
+    margin-top: 33px;
 }
 
 .videoItem {
-    display: table-row;
-    background: #e3e3e3;
-    border-radius: 15px;
-    padding: 5px;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
     height: 116px;
-    overflow-y: hidden;
+    margin-right: 6px;
+    margin-bottom: 3px;
+    background: #e3e3e3;
+    border-radius: 12px;
     cursor: pointer;
 }
 
-.videoItem .thumbnail, .videoItem .text {
+.videoItem-table {
+    display: table;
+    width: 100%;
+}
+
+.videoItem-row {
+    display: table-row;
+}
+
+.videoItem-cell {
     display: table-cell;
     padding: 5px;
 }
 
-.videoItem .text {
+.videoItem-cell.text {
     vertical-align: top;
 }
 
-.videoItem .thumbnail img {
+.videoItem-cell.thumbnail img {
     width: 80px;
     height: 80px;
 }
 
-.videoItem .thumbnail {
+.videoItem-cell.thumbnail {
     width: 90px;
+    padding-bottom: 0;
 }
 
-.videoItem .text h3.title {
+.videoItem-cell.text h3.title {
     margin: 0;
     font-size: 0.9rem;
     max-height: 36px;
     overflow: hidden;
 }
 
-.videoItem .text .description {
-    max-height: 67px;
+.videoItem-cell.text .description {
+    max-height: 82px;
     overflow: hidden;
     font-size: 0.8rem;
 }
 
-.date, .duration {
+.videoItem .date, .videoItem .duration {
     font-size: 0.7rem;
 }
 
