@@ -26,13 +26,17 @@ header img {
     margin-top: -1px;
 }
 
+.global-logout {
+    color: #ff00009c;
+}
+
 #app {
     display: none;
 }
 
 #menu-open {
     position: fixed;
-    top: -1px;
+    top: 3px;
     right: 5px;
     cursor: pointer;
 }
@@ -47,29 +51,14 @@ header img {
 
 #menu-close {
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
+    top: 3px;
+    right: 5px;
     cursor: pointer;
 }
 
-#menu-close div  {
-    width: 20px;
-    height: 4px;
-    background: white;
-    border-radius: 5px;
-    position: fixed;
-    top: 13px;
-    right: 5px;
-}
-
-#menu-close div:first-child {
-    transform: rotateZ(45deg);
-}
-
-#menu-close div:last-child {
-    transform: rotateZ(-45deg);
+#menu-open span, #menu-close span {
+    color: white;
+    font-size: 1.5rem;
 }
 
 #menu {
@@ -438,138 +427,38 @@ input#search {
 
 #filter-close, #filter-open, #search-reset, #search-btn {
     display: inline-block;
-    width: 30px;
-    height: 30px;
     margin: 0;
     position: absolute;
+}
+
+#filter-open, #filter-close {
     top: 35px;
-    right: 7px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: #2196F3;
+    color: white;
+}
+
+#filter-open span, #filter-close span {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #search-reset, #search-btn {
-    top: 35px;
+    top: 41px;
     cursor: pointer;
 }
 
 #search-reset {
-    right: 73px;
+    right: 70px;
 }
 
 #search-btn {
-    right: 43px;
-}
-
-#search-reset div {
-    background: #8a8a8a;
-    width: 18px;
-    height: 3px;
-    border-radius: 4px;
-    position: relative;
-}
-
-#search-btn div {
-    background: black;
-    border-radius: 4px;
-    position: relative;
-}
-
-#search-btn div:nth-child(1) {
-    width: 15px;
-    height: 3px;
-    background: black;
-    transform: rotateZ(35deg);
-    top: 18px;
-    left: 11px;
-}
-
-#search-btn div:nth-child(2) {
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
-    background: black;
-    top: 2px;
-    left: 1px;
-}
-
-#search-btn div:nth-child(3) {
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background: white;
-    top: -10px;
-    left: 3px;
-}
-
-input:hover + #search-reset > div,  input:focus + #search-reset > div {
-    background: black;
-}
-
-#search-reset div:nth-child(even){
-    left: 8px;
-    transform: rotateZ(-45deg);
-    top: 11px;
-}
-
-#search-reset div:nth-child(odd){
-    left: 8px;
-    transform: rotateZ(45deg);
-    top: 14px;
-}
-
-#filter-open span, #filter-close span {
-    background: white;
-    position: relative;
-    display: block;
-}
-
-#filter-open span:nth-child(even){
-    width: 20px;
-    height: 3px;
-    left: -2px;
-    border-radius: 3px;
-}
-
-#filter-open span:nth-child(odd){
-    width: 6px;
-    height: 6px;
-    left: -2px;
-    border-radius: 3px;
-}
-
-#filter-open span:nth-child(2){
-    top: -2px;
-}
-
-#filter-open span:nth-child(4){
-    top: -2px;
-}
-
-#filter-open span:nth-child(1){
-    left: -4px;
-    top: 2px;
-}
-
-#filter-open span:nth-child(3){
-    left: 13px;
-    top: 2px;
-}
-
-#filter-close span {
-    width: 18px;
-    height: 3px;
-    border-radius: 4px;
-}
-
-#filter-close span:nth-child(even){
-    left: -2px;
-    transform: rotateZ(-45deg);
-    top: -1px;
-}
-
-#filter-close span:nth-child(odd){
-    left: -2px;
-    transform: rotateZ(45deg);
-    top: 2px;
+    right: 49px;
 }
 
 #filter-close.disabled, #filter-open.disabled, #filters button.disabled {
@@ -577,12 +466,7 @@ input:hover + #search-reset > div,  input:focus + #search-reset > div {
     color: black;
 }
 
-#filter-open.disabled span, #filter-close.disabled span {
-    background: black;
-}
-
-#filter-close.disabled:hover, #filter-open.disabled:hover, #filter-close.disabled:active, #filter-open.disabled:active,
-#filters button.disabled:hover, #filters button.disabled:active
+#filter-close.disabled:hover, #filter-open.disabled:hover, #filters button.disabled:hover
 {
     background: #cecece;
 }
@@ -607,7 +491,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-@media (min-width: 513px){
+@media (min-width: 503px){
     #filter-close, #filter-open {
         right: unset;
         left: 477px;
@@ -615,11 +499,11 @@ button:disabled {
 
     #search-reset {
         right: unset;
-        left: 397px;
+        left: 420px;
     }
 
     #search-btn {
         right: unset;
-        left: 427px;
+        left: 435px;
     }
 }

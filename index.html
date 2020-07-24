@@ -9,6 +9,7 @@
     <meta property="og:image" content="/res/img/og.png">
     <meta property="og:image:secure_url" content="/res/img/og.png">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/res/css/fontawesome.css">
     <link rel="stylesheet" type="text/css" href="/res/css/general.css">
     <script src="/res/js/config.js"></script>
     <script src="/res/js/hls.js"></script>
@@ -26,21 +27,18 @@
             <img src="/res/img/logo.png" alt="">
             <div>
                 <div id="menu-open" v-if="!menuOpen" @click="menuOpen=true">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <span class="fas fa-bars"></span>
                 </div>
                 <div id="menu-close" v-if="menuOpen" @click="menuOpen=false">
-                    <div></div>
-                    <div></div>
+                    <span class="fas fa-times"></span>
                 </div>
             </div>
             <div v-if="menuOpen" id="menu">
-                <div v-if="loggedIn" @click="logoutLocal()">In diesem Browser ausloggen</div>
-                <div v-if="loggedIn" @click="logoutGlobal()">Überall ausloggen</div>
-                <div v-if="loggedIn" @click="prepareChangeUsername()">Benutzername ändern</div>
-                <div v-if="loggedIn" @click="prepareChangePassword()">Passwort ändern</div>
-                <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;">Registrieren</div>
+                <div v-if="loggedIn" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
+                <div v-if="loggedIn" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
+                <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-user"></span> Benutzername ändern</div>
+                <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-user"></span> Passwort ändern</div>
+                <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
             </div>
         </header>
 
@@ -54,7 +52,7 @@
                     <input type="checkbox" v-model="permanentLogin">
                     <span class="checkMark"></span>
                 </label>
-                <button type="button" @click="login()">Einloggen</button>
+                <button type="button" @click="login()"><span class="fa fa-sign-in-alt"></span> Einloggen</button>
                 <button type="button" @click="showInfo('Sage mir bescheid. Dann kann ich dein Passwort zurücksetzen')" class="link">Passwort vergessen</button>
             </div>
 
@@ -63,13 +61,13 @@
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
-                <button type="button" @click="register()">Registrieren</button>
+                <button type="button" @click="register()"><span class="fa fa-user-plus"></span> Registrieren</button>
             </div>
 
             <!-- changeUsername -->
             <div v-if="view === 'changeUsername'">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername">
-                <button type="button" @click="changeUsername()">Jetzt ändern</button>
+                <button type="button" @click="changeUsername()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()">Abbrechen</button>
             </div>
 
@@ -77,7 +75,7 @@
             <div v-if="view === 'changePassword' || view === 'reset'">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
-                <button type="button" @click="changePassword()">Jetzt ändern</button>
+                <button type="button" @click="changePassword()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()" v-if="view === 'changePassword'">Abbrechen</button>
             </div>
 
@@ -86,29 +84,22 @@
                 <div id="search-and-filter">
                     <input id="search" type="text" placeholder="Suche..." v-model="search">
                     <div id="search-reset" v-if="search!==''" @click="search=''">
-                        <div></div>
-                        <div></div>
+                        <span class="fa fa-times"></span>
                     </div>
                     <div id="search-btn">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <span class="fa fa-search"></span>
                     </div>
-                    <button id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <button id="filter-close" v-if="filterOpen" @click="filterOpen=false" v-bind:class="!filters ? 'disabled' : ''">
-                        <span></span>
-                        <span></span>
-                    </button>
+                    <div id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
+                        <span class="fa fa-sliders-h"></span>
+                    </div>
+                    <div id="filter-close" v-if="filterOpen" @click="filterOpen=false" v-bind:class="!filters ? 'disabled' : ''">
+                        <span class="fa fa-play"></span>
+                    </div>
                 </div>
                 <div v-if="filterOpen" id="filters">
                     <div>
                         <h2>Filter</h2>
-                        <button id="filter-reset" class="disabled" v-bind:class="!filters ? 'disabled' : ''" v-bind:disabled="!filters" @click="resetAllFilters()">Zurücksetzen</button>
+                        <button id="filter-reset" class="disabled" v-bind:class="!filters ? 'disabled' : ''" v-bind:disabled="!filters" @click="resetAllFilters()"><span class="fa fa-times"></span> entfernen</button>
                     </div>
                     <h3>Personen</h3>
                     <button v-bind:class="!isFilteredPerson(person) ? 'disabled' : ''"  v-for="person in persons"
@@ -140,7 +131,7 @@
                 <div id="videoBackground" @click="closeVideo()" ></div>
                 <div id="videoElement">
                     <div id="videoHeadline" v-if="video">{{app.videoMap[app.videoTitle].decryptedTitle}}</div><!--
-                 --><button type="button" id="shareBtn" @click="share()">sh</button>
+                 --><button type="button" id="shareBtn" @click="share()"><span class="fa fa-share-alt"></span></button>
                     <video id="video" autoplay controls></video>
                 </div>
             </div>
