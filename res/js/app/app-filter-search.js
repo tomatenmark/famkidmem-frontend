@@ -48,11 +48,11 @@ function isSearchMatch(designator){
     let words = app.search.replace(/\s\s+/g, ' ').split(' ');
     for(let i = 0; i < words.length; i++){
         let word = words[i].toLowerCase();
-        if(textToSearchIn.indexOf(word) >= 0){
-            return true;
+        if(textToSearchIn.indexOf(word) < 0){
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 function isFilterMatch(designator){
