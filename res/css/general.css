@@ -310,7 +310,8 @@ button.link:hover, button.link:active {
 }
 
 #videos {
-    margin-top: 33px;
+    max-width: 1630px;
+    margin-top: 7px;
 }
 
 .videoItem {
@@ -423,30 +424,32 @@ button.link:hover, button.link:active {
     top: -1000px;
 }
 
+#search-and-filter {
+    position: relative;
+}
+
 input#search {
-    width: calc(100% - 50px);
-    max-width: 450px;
+    width: calc(100% - 35px);
+    max-width: 365px;
     height: 30px;
     margin: 0;
     font-size: 1.4rem;
-    position: absolute;
-    top: 35px;
+    display: inline-block;
 }
 
 #filter-close, #filter-open, #search-reset, #search-btn {
     display: inline-block;
-    margin: 0;
-    position: absolute;
 }
 
 #filter-open, #filter-close {
-    top: 35px;
-    right: 6px;
     width: 30px;
     height: 30px;
     border-radius: 10px;
     background: #2196F3;
     color: white;
+    position: absolute;
+    top: 0;
+    margin-left: 5px;
 }
 
 #filter-open span, #filter-close span {
@@ -456,17 +459,11 @@ input#search {
     transform: translate(-50%, -50%);
 }
 
-#search-reset, #search-btn {
-    top: 41px;
-    cursor: pointer;
-}
-
 #search-reset {
-    right: 70px;
-}
-
-#search-btn {
-    right: 49px;
+    position: relative;
+    right: 22px;
+    top: -2px;
+    cursor: pointer;
 }
 
 #filter-close.disabled, #filter-open.disabled, #filters button.disabled {
@@ -500,11 +497,6 @@ button:disabled {
 }
 
 @media (min-width: 503px){
-    #filter-close, #filter-open {
-        right: unset;
-        left: 477px;
-    }
-
     #search-reset {
         right: unset;
         left: 420px;
