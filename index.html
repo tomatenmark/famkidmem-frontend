@@ -82,7 +82,7 @@
             <!-- videoIndex -->
             <div v-if="view === 'index' && videoIndexReady">
                 <div id="search-and-filter">
-                    <input id="search" type="text" placeholder="Suche..." v-model="search"><!--
+                    <input id="search" type="text" placeholder="Suche..." v-model="search" @input="updateSearch()"><!--
                     --><div id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
                         <span class="fa fa-sliders-h"></span>
                     </div>

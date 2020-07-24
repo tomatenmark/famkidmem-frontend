@@ -57,7 +57,8 @@ const methods = {
     hasMatchingVideo: function (filter, type) { return hasMatchingVideo(filter, type)},
     hasPersonFilter: function () { return hasPersonFilter()},
     hasYearFilter: function () { return hasYearFilter()},
-    isMatch: function (designator) { return isMatch(designator)}
+    isMatch: function (designator) { return isMatch(designator)},
+    updateSearch: function () {updateSearch()}
 };
 
 app = new Vue({

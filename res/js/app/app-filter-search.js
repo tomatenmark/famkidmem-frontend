@@ -101,6 +101,11 @@ function isFilterTypeMatch(list, map, attrList){
     return personFilter;
 }
 
+//hack: was not updated in android chrome
+function updateSearch(){
+    app.search = document.getElementById('search').value;
+}
+
 function resetAllFilters(){
     app.filterMap.recordedInCologne = false;
     app.filterMap.recordedInGardelegen = false;
