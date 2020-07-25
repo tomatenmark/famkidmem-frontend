@@ -33,6 +33,7 @@
                     <span class="fas fa-times"></span>
                 </div>
             </div>
+            <div id="menuBackground" v-if="menuOpen" @click="menuOpen=false" ></div>
             <div v-if="menuOpen" id="menu">
                 <div v-if="loggedIn" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
                 <div v-if="loggedIn" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
@@ -129,8 +130,13 @@
             <div v-show="video">
                 <div id="videoBackground" @click="closeVideo()" ></div>
                 <div id="videoElement">
-                    <div id="videoHeadline" v-if="video">{{app.videoMap[app.videoTitle].decryptedTitle}}</div><!--
-                 --><button type="button" id="shareBtn" @click="share()"><span class="fa fa-share-alt"></span></button>
+                    <div id="videoHeadline" v-if="video">
+                        <div id="videoTitle">
+                            {{app.videoMap[app.videoTitle].decryptedTitle}}
+                            <button type="button" id="shareBtn" @click="share()"><span class="fa fa-share-alt"></span></button>
+                        </div><!--
+                     --><button type="button" id="videoClose" @click="closeVideo()"><span class="fa fa-times"></span></button>
+                    </div>
                     <video id="video" autoplay controls></video>
                 </div>
             </div>

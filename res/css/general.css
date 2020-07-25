@@ -54,6 +54,7 @@ header img {
     top: 3px;
     right: 5px;
     cursor: pointer;
+    z-index: 2;
 }
 
 #menu-open span, #menu-close span {
@@ -68,6 +69,7 @@ header img {
     top: 30px;
     right: 0;
     max-width: 500px;
+    z-index: 1;
 }
 
 #menu div {
@@ -87,7 +89,7 @@ header img {
     padding: 7px;
 }
 
-#dialogBackground {
+#menuBackground, #dialogBackground, #videoBackground {
     position: fixed;
     top: 0;
     left: 0;
@@ -401,22 +403,41 @@ button.link:hover, button.link:active {
 }
 
 #videoHeadline {
+    width: 100%;
+    position: relative;
+}
+
+#videoTitle {
     display: inline-block;
-    width: calc(100% - 50px);
+    width: calc(100% - 20px);
+    color: white;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#shareBtn {
+    width: auto;
+    height: auto;
     color: white;
+    display: inline-block;
+    margin: 0;
+    background: transparent;
 }
 
 #video {
     width: 100%;
 }
 
-#shareBtn {
-    width: 50px;
+#videoClose {
+    width: 20px;
+    height: auto;
+    color: white;
     display: inline;
-    margin: 0 0 3px;
+    margin: 0;
+    padding: 0;
     background: transparent;
+    position: absolute;
+    top: 0;
 }
 
 #copyTextArea {
@@ -494,16 +515,4 @@ input#search {
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
-
-@media (min-width: 503px){
-    #search-reset {
-        right: unset;
-        left: 420px;
-    }
-
-    #search-btn {
-        right: unset;
-        left: 435px;
-    }
 }
