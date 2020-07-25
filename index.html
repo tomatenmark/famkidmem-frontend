@@ -37,8 +37,8 @@
             <div v-if="menuOpen" id="menu">
                 <div v-if="loggedIn" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
                 <div v-if="loggedIn" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
-                <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-user"></span> Benutzername ändern</div>
-                <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-user"></span> Passwort ändern</div>
+                <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
+                <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
             </div>
         </header>
