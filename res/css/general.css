@@ -85,7 +85,7 @@ header img {
     background: #847C7E;
 }
 
-#main {
+main {
     margin-top: 30px;
     padding: 7px;
 }
@@ -400,7 +400,7 @@ body.hover .videoItem:hover {
     position: fixed;
     width: 98%;
     max-width: 490px;
-    max-height: 90%;
+    max-height: 98%;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
