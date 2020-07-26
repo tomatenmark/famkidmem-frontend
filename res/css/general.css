@@ -518,6 +518,10 @@ body.hover #filter-close.disabled:hover, body.hover #filter-open.disabled:hover,
     margin-bottom: 0;
 }
 
+#insider div {
+    margin-bottom: 30px;
+}
+
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;

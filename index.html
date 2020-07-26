@@ -40,7 +40,7 @@
                 <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
                 <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
-                <div onclick="window.open('https://zeugs.markherrmann.de/family-moments-insider/');"><span class="fa fa-info-circle"></span> Insider</div>
+                <div @click="insider=true; menuOpen=false;"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
         </header>
 
@@ -82,7 +82,7 @@
             </div>
 
             <!-- videoIndex -->
-            <div v-if="view === 'index' && videoIndexReady">
+            <div v-if="view === 'index' && videoIndexReady && !insider">
                 <div id="search-and-filter">
                     <input id="search" type="text" placeholder="Suche..." v-model="search" @input="updateSearch()"><!--
                     --><div id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
@@ -139,6 +139,29 @@
                      --><button type="button" id="videoClose" @click="closeVideo()"><span class="fa fa-times"></span></button>
                     </div>
                     <video id="video" autoplay controls></video>
+                </div>
+            </div>
+
+            <!-- insider -->
+            <div id="insider" v-if="insider">
+                <button @click="insider=false"><span class="fa fa-arrow-left"></span> Zurück</button>
+                <div>Hier findest du Insider-Informationen zu Family Moments</div>
+                <div>
+                    <strong>Release</strong><br>
+                    Samstag, 15. August 2020, 18 Uhr
+                </div>
+                <div>
+                    <strong>Sicherheitsarchitektur</strong><br>
+                    17 Seiten über die Sicherheit von Family Moments.<br>
+                    Erfahrt mehr über die Anforderungen an die Sicherheit und deren technische Umsetzung.<br>
+                    <button onclick="window.open('https://cloud.markherrmann.de/index.php/s/fm-sicherheitsarchitektur');">Jetzt lesen</button>
+                </div>
+                <div>
+                    <strong>Code</strong><br>
+                    Der komplette Code von Family Moments ist open-source. Seht ihn euch an.<br>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-backend');">Server</button>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-frontend');">Website</button>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-ccms');">Admin / Editor</button>
                 </div>
             </div>
 

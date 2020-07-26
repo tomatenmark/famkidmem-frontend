@@ -30,7 +30,8 @@ const data = {
     videoTitle: '',
     search: '',
     filterOpen: false,
-    filters: false
+    filters: false,
+    insider: false
 };
 
 const methods = {
