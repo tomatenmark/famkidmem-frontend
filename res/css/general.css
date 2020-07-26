@@ -526,3 +526,59 @@ button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+@media (min-width: 700px) {
+    .videoItem {
+        max-width: 340px;
+    }
+}
+
+@media (min-width: 860px) {
+    .videoItem {
+        max-width: 400px;
+    }
+}
+
+@media (min-width: 1060px) {
+    .videoItem {
+        width: 500px;
+        height: 145px;
+    }
+
+    .videoItem-cell.thumbnail {
+        width: 100px;
+    }
+
+    .videoItem-cell.thumbnail img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .videoItem .date, .videoItem .duration {
+        font-size: 0.9rem;
+    }
+
+    .videoItem-cell.text h3.title {
+        font-size: 1.1rem;
+        max-height: 43px;
+    }
+
+    .videoItem-cell.text .description {
+        height: 92px;
+        font-size: 1rem;
+    }
+
+    input#search {
+        width: 464px;
+    }
+
+    #videoElement {
+        width: 700px;
+    }
+
+    #videoHeadline {
+        font-size: 1.3rem;
+    }
+
+    
+}
