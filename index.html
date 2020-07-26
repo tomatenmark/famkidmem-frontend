@@ -40,6 +40,7 @@
                 <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
                 <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
+                <div onclick="window.open('https://zeugs.markherrmann.de/family-moments-insider/');"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
         </header>
 
