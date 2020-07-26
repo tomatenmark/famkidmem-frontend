@@ -27,9 +27,11 @@ const data = {
     filterMap: null,
     video: false,
     videoLink: '',
+    videoTitle: '',
     search: '',
     filterOpen: false,
-    filters: false
+    filters: false,
+    insider: false
 };
 
 const methods = {
@@ -56,7 +58,8 @@ const methods = {
     hasMatchingVideo: function (filter, type) { return hasMatchingVideo(filter, type)},
     hasPersonFilter: function () { return hasPersonFilter()},
     hasYearFilter: function () { return hasYearFilter()},
-    isMatch: function (designator) { return isMatch(designator)}
+    isMatch: function (designator) { return isMatch(designator)},
+    updateSearch: function () {updateSearch()}
 };
 
 app = new Vue({
@@ -118,6 +121,16 @@ function copyText(text){
     copTextElement.select();
     copTextElement.setSelectionRange(0, 100000); /*For mobile devices*/
     document.execCommand("copy");
+}
+
+function hasTouch() {
+    return 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
+}
+
+if(!hasTouch()){
+    document.body.setAttribute('class', 'hover');
 }
 
 window.addEventListener("load", init);

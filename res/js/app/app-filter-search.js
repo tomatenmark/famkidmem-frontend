@@ -48,11 +48,11 @@ function isSearchMatch(designator){
     let words = app.search.replace(/\s\s+/g, ' ').split(' ');
     for(let i = 0; i < words.length; i++){
         let word = words[i].toLowerCase();
-        if(textToSearchIn.indexOf(word) >= 0){
-            return true;
+        if(textToSearchIn.indexOf(word) < 0){
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 function isFilterMatch(designator){
@@ -101,13 +101,17 @@ function isFilterTypeMatch(list, map, attrList){
     return personFilter;
 }
 
+//hack: search was not updated in android chrome
+function updateSearch(){
+    app.search = document.getElementById('search').value;
+}
+
 function resetAllFilters(){
     app.filterMap.recordedInCologne = false;
     app.filterMap.recordedInGardelegen = false;
     resetListFilters(app.persons, app.filterMap.persons);
     resetListFilters(app.years, app.filterMap.years);
     setFiltered();
-    app.filterOpen = false;
 }
 
 function resetListFilters(list, map){

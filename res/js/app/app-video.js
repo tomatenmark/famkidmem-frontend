@@ -12,7 +12,6 @@ function setIndex(data){
     initFilterMap();
     initVideoMap(masterKey);
     loadThumbnails();
-    //TODO: maybe preload m3u8, but wait until all thumbnails loaded
 }
 
 function initFilterMap(){
@@ -116,6 +115,8 @@ function initPlayVideo(title){
     app.video = true;
     loadM3u8(title, app.videoMap[title].video.m3u8.filename);
     self.location.href = `#video/${title}`;
+    document.title = `${app.videoMap[title].decryptedTitle} - Family Moments`;
+    app.videoTitle = title;
 }
 
 function playVideo(title){
@@ -128,7 +129,7 @@ function playVideo(title){
         hls = new Hls();
         hls.on(Hls.Events.ERROR, function (event, data) {
             error = data;
-            console.log("there was an error with hls");
+            console.error("there was an error with hls: " + JSON.stringify(data));
         });
         hls.loadSource(`data:application/vnd.apple.mpegurl;base64,${app.videoMap[title].m3u8Base64}`);
         hls.attachMedia(video);
@@ -141,6 +142,8 @@ function closeVideo(){
     app.video = false;
     document.getElementById('video').src = '';
     self.location.href = '#';
+    document.title = 'Family Moments';
+    app.videoTitle = '';
 }
 
 function decryptMeta(ciphertextBase64, keyBase64, ivBase64){
@@ -149,7 +152,7 @@ function decryptMeta(ciphertextBase64, keyBase64, ivBase64){
 }
 
 function showDate(timestamp, showDateValues){
-    let months = ["Januar", "Februar", "März", "April", "Mai", "Juni","Juli", "August", "September", "Oktober", "November", "Dezember"];
+    let months = ["Jan.", "Feb.", "März", "Apr.", "Mai", "Juni","Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez."];
     let date = new Date(timestamp);
     if(showDateValues === 4){
         return `${date.getFullYear()}`;

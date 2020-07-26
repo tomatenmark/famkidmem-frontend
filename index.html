@@ -9,7 +9,11 @@
     <meta property="og:image" content="/res/img/og.png">
     <meta property="og:image:secure_url" content="/res/img/og.png">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/res/css/general.css">
+    <link rel="icon" type="image/png" href="/res/img/favicon.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/res/img/favicon_large.png" sizes="96x96">
+    <link rel="apple-touch-icon" sizes="180x180" href="/res/img/apple-touch-icon.png">
+    <link rel="stylesheet" type="text/css" href="/res/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/style.css">
     <script src="/res/js/config.js"></script>
     <script src="/res/js/hls.js"></script>
     <script src="/res/js/vue-core.js"></script>
@@ -26,89 +30,76 @@
             <img src="/res/img/logo.png" alt="">
             <div>
                 <div id="menu-open" v-if="!menuOpen" @click="menuOpen=true">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <span class="fas fa-bars"></span>
                 </div>
                 <div id="menu-close" v-if="menuOpen" @click="menuOpen=false">
-                    <div></div>
-                    <div></div>
+                    <span class="fas fa-times"></span>
                 </div>
             </div>
+            <div id="menuBackground" v-if="menuOpen" @click="menuOpen=false" ></div>
             <div v-if="menuOpen" id="menu">
-                <div v-if="loggedIn" @click="logoutLocal()">In diesem Browser ausloggen</div>
-                <div v-if="loggedIn" @click="logoutGlobal()">Überall ausloggen</div>
-                <div v-if="loggedIn" @click="prepareChangeUsername()">Benutzername ändern</div>
-                <div v-if="loggedIn" @click="prepareChangePassword()">Passwort ändern</div>
-                <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;">Registrieren</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutLocal(); insider=false;"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutGlobal(); insider=false;"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangeUsername(); insider=false;"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangePassword(); insider=false;"><span class="fa fa-key"></span> Passwort ändern</div>
+                <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
+                <div @click="insider=true; menuOpen=false;"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
         </header>
 
-        <div id="main">
+        <main>
 
             <!-- login -->
-            <div v-if="view === 'login'">
+            <div v-if="view === 'login' && !insider">
                 <input type="text" placeholder="Benutzername" v-model="username">
                 <input type="password" placeholder="Passwort" v-model="password">
                 <label class="container">Eingeloggt bleiben
                     <input type="checkbox" v-model="permanentLogin">
                     <span class="checkMark"></span>
                 </label>
-                <button type="button" @click="login()">Einloggen</button>
+                <button type="button" @click="login()"><span class="fa fa-sign-in-alt"></span> Einloggen</button>
                 <button type="button" @click="showInfo('Sage mir bescheid. Dann kann ich dein Passwort zurücksetzen')" class="link">Passwort vergessen</button>
             </div>
 
             <!-- init/register -->
-            <div v-if="view === 'init'">
+            <div v-if="view === 'init' && !insider">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
-                <button type="button" @click="register()">Registrieren</button>
+                <button type="button" @click="register()"><span class="fa fa-user-plus"></span> Registrieren</button>
             </div>
 
             <!-- changeUsername -->
-            <div v-if="view === 'changeUsername'">
+            <div v-if="view === 'changeUsername' && !insider">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername">
-                <button type="button" @click="changeUsername()">Jetzt ändern</button>
+                <button type="button" @click="changeUsername()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()">Abbrechen</button>
             </div>
 
             <!-- changePassword -->
-            <div v-if="view === 'changePassword' || view === 'reset'">
+            <div v-if="(view === 'changePassword' || view === 'reset') && !insider">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
-                <button type="button" @click="changePassword()">Jetzt ändern</button>
+                <button type="button" @click="changePassword()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()" v-if="view === 'changePassword'">Abbrechen</button>
             </div>
 
             <!-- videoIndex -->
-            <div v-if="view === 'index' && videoIndexReady">
+            <div v-if="view === 'index' && videoIndexReady && !insider">
                 <div id="search-and-filter">
-                    <input id="search" type="text" placeholder="Suche..." v-model="search">
-                    <div id="search-reset" v-if="search!==''" @click="search=''">
-                        <div></div>
-                        <div></div>
+                    <input id="search" type="text" placeholder="Suche..." v-model="search" @input="updateSearch()"><!--
+                    --><div id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
+                        <span class="fa fa-sliders-h"></span>
                     </div>
-                    <div id="search-btn">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <button id="filter-open" v-if="!filterOpen" @click="filterOpen=true" v-bind:class="!filters ? 'disabled' : ''">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <button id="filter-close" v-if="filterOpen" @click="filterOpen=false" v-bind:class="!filters ? 'disabled' : ''">
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+                    <div id="filter-close" v-if="filterOpen" @click="filterOpen=false" v-bind:class="!filters ? 'disabled' : ''">
+                        <span class="fa fa-play"></span>
+                    </div><!--
+                 --><span id="search-reset" class="fa fa-times" v-if="search!==''" @click="search=''"></span><!--
+                --></div>
                 <div v-if="filterOpen" id="filters">
                     <div>
                         <h2>Filter</h2>
-                        <button id="filter-reset" class="disabled" v-bind:class="!filters ? 'disabled' : ''" v-bind:disabled="!filters" @click="resetAllFilters()">Zurücksetzen</button>
+                        <button id="filter-reset" class="disabled" v-bind:class="!filters ? 'disabled' : ''" v-bind:disabled="!filters" @click="resetAllFilters()"><span class="fa fa-times"></span> entfernen</button>
                     </div>
                     <h3>Personen</h3>
                     <button v-bind:class="!isFilteredPerson(person) ? 'disabled' : ''"  v-for="person in persons"
@@ -119,15 +110,19 @@
                 </div>
                 <div id="videos" v-if="!filterOpen">
                     <div class="videoItem" v-for="video in videos" v-if="isMatch(video.title)" @click="initPlayVideo(video.title)">
-                        <div class="thumbnail">
-                            <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
-                            <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
-                            <img src="/res/img/thumbnail-placeholder.png" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
-                            <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
-                        </div>
-                        <div class="text">
-                            <h3 class="title">{{videoMap[video.title].decryptedTitle}}</h3>
-                            <div class="description">{{videoMap[video.title].decryptedDescription}}</div>
+                        <div class="videoItem-table">
+                            <div class="videoItem-row">
+                                <div class="videoItem-cell thumbnail">
+                                    <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
+                                    <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
+                                    <img src="/res/img/thumbnail-placeholder.jpg" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
+                                    <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
+                                </div>
+                                <div class="videoItem-cell text">
+                                    <h3 class="title">{{videoMap[video.title].decryptedTitle}}</h3>
+                                    <div class="description">{{videoMap[video.title].decryptedDescription}}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,18 +131,50 @@
 
 
             <!-- video -->
-            <div v-if="video">
+            <div v-show="video && !insider">
                 <div id="videoBackground" @click="closeVideo()" ></div>
-                <video id="video" autoplay controls></video>
-                <button type="button" id="shareBtn" @click="share()">Video-Link senden</button>
+                <div id="videoElement">
+                    <div id="videoHeadline" v-if="video">
+                        <div id="videoTitle">
+                            {{app.videoMap[app.videoTitle].decryptedTitle}}
+                            <button type="button" id="shareBtn" @click="share()"><span class="fa fa-share-alt"></span></button>
+                        </div><!--
+                     --><button type="button" id="videoClose" @click="closeVideo()"><span class="fa fa-times"></span></button>
+                    </div>
+                    <video id="video" autoplay controls></video>
+                </div>
             </div>
 
-        </div>
+            <!-- insider -->
+            <div id="insider" v-if="insider">
+                <button @click="insider=false"><span class="fa fa-arrow-left"></span> Zurück</button>
+                <div>Hier findest du Insider-Informationen zu Family Moments</div>
+                <div>
+                    <strong>Release</strong><br>
+                    Samstag, 15. August 2020, 18 Uhr
+                </div>
+                <div>
+                    <strong>Sicherheitsarchitektur</strong><br>
+                    17 Seiten über die Sicherheit von Family Moments.<br>
+                    Erfahrt mehr über die Anforderungen an die Sicherheit und deren technische Umsetzung.<br>
+                    <button onclick="window.open('https://cloud.markherrmann.de/index.php/s/fm-sicherheitsarchitektur');">Jetzt lesen</button>
+                </div>
+                <div>
+                    <strong>Code</strong><br>
+                    Der komplette Code von Family Moments ist open-source. Seht ihn euch an.<br>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-backend');">Server</button>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-frontend');">Website</button>
+                    <button onclick="window.open('https://github.com/tomatenmark/famkidmem-ccms');">Admin / Editor</button>
+                </div>
+            </div>
+
+        </main>
 
 
         <!-- dialogs -->
-        <div id="dialog" v-if="dialog!==null" @click="dialog=null">
-            <div>
+        <div v-if="dialog!==null">
+            <div id="dialogBackground" @click="dialog=null"></div>
+            <div id="dialogElement">
                 <div v-bind:class="dialog.error ? 'error' : ''">{{dialog.text}}</div>
                 <button type="button" class="ok" @click="dialog=null">OK</button>
             </div>
@@ -169,6 +196,7 @@
     <script src="/res/js/app/app-dialog.js"></script>
     <script src="/res/js/app/app-user.js"></script>
     <script src="/res/js/app/app-filter-search.js"></script>
+    <script src="/res/js/app/app-share.js"></script>
     <script src="/res/js/app/app-video.js"></script>
     <script src="/res/js/app/app.js"></script>
 
