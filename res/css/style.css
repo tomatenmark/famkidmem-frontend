@@ -536,11 +536,19 @@ button:disabled {
     .videoItem {
         max-width: 340px;
     }
+
+    input#search {
+        max-width: 305px;
+    }
 }
 
 @media (min-width: 860px) {
     .videoItem {
         max-width: 400px;
+    }
+
+    input#search {
+        max-width: 360px;
     }
 }
 
