@@ -35,10 +35,10 @@
             </div>
             <div id="menuBackground" v-if="menuOpen" @click="menuOpen=false" ></div>
             <div v-if="menuOpen" id="menu">
-                <div v-if="loggedIn" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
-                <div v-if="loggedIn" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
-                <div v-if="loggedIn" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
-                <div v-if="loggedIn" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
                 <div @click="insider=true; menuOpen=false;"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
@@ -47,7 +47,7 @@
         <main>
 
             <!-- login -->
-            <div v-if="view === 'login'">
+            <div v-if="view === 'login' && !insider">
                 <input type="text" placeholder="Benutzername" v-model="username">
                 <input type="password" placeholder="Passwort" v-model="password">
                 <label class="container">Eingeloggt bleiben
@@ -59,7 +59,7 @@
             </div>
 
             <!-- init/register -->
-            <div v-if="view === 'init'">
+            <div v-if="view === 'init' && !insider">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
@@ -67,14 +67,14 @@
             </div>
 
             <!-- changeUsername -->
-            <div v-if="view === 'changeUsername'">
+            <div v-if="view === 'changeUsername' && !insider">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername">
                 <button type="button" @click="changeUsername()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()">Abbrechen</button>
             </div>
 
             <!-- changePassword -->
-            <div v-if="view === 'changePassword' || view === 'reset'">
+            <div v-if="(view === 'changePassword' || view === 'reset') && !insider">
                 <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
                 <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
                 <button type="button" @click="changePassword()"><span class="fa fa-user"></span> Jetzt ändern</button>
@@ -128,7 +128,7 @@
 
 
             <!-- video -->
-            <div v-show="video">
+            <div v-show="video && !insider">
                 <div id="videoBackground" @click="closeVideo()" ></div>
                 <div id="videoElement">
                     <div id="videoHeadline" v-if="video">
