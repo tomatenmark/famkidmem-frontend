@@ -547,6 +547,7 @@ button:disabled {
 @media (min-width: 1060px) {
     .videoItem {
         width: 500px;
+        max-width: unset;
         height: 145px;
     }
 
@@ -575,9 +576,11 @@ button:disabled {
 
     input#search {
         width: 464px;
+        max-width: unset;
     }
 
     #videoElement {
+        max-width: unset;
         width: 700px;
     }
 
