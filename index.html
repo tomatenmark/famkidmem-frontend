@@ -35,10 +35,10 @@
             </div>
             <div id="menuBackground" v-if="menuOpen" @click="menuOpen=false" ></div>
             <div v-if="menuOpen" id="menu">
-                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutLocal()"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
-                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutGlobal()"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
-                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangeUsername()"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
-                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangePassword()"><span class="fa fa-key"></span> Passwort ändern</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutLocal(); insider=false;"><span class="fa fa-sign-out-alt"></span> In diesem Browser ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="logoutGlobal(); insider=false;"><span class="fa fa-sign-out-alt global-logout"></span> Überall ausloggen</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangeUsername(); insider=false;"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
+                <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangePassword(); insider=false;"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
                 <div @click="insider=true; menuOpen=false;"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
