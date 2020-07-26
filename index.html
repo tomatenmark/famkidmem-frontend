@@ -111,7 +111,7 @@
                                 <div class="videoItem-cell thumbnail">
                                     <div class="date">{{showDate(video.timestamp, video.showDateValues)}}</div>
                                     <img v-bind:src="`data:image/png;base64,${videoMap[video.title].thumbnailBase64}`" alt="" v-if="videoMap[video.title].thumbnailBase64 !== ''">
-                                    <img src="/res/img/thumbnail-placeholder.png" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
+                                    <img src="/res/img/thumbnail-placeholder.jpg" alt="" v-if="videoMap[video.title].thumbnailBase64 === ''">
                                     <div class="duration">{{showDuration(video.durationInSeconds)}}</div>
                                 </div>
                                 <div class="videoItem-cell text">
