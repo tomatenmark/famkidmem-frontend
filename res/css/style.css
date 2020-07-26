@@ -378,6 +378,11 @@ body.hover .videoItem:hover {
     font-size: 0.7rem;
 }
 
+.videoItem .duration {
+    position: relative;
+    top: -4px;
+}
+
 #no-videos {
     position: absolute;
     top: 76px;
