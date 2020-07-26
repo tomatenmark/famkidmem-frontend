@@ -152,7 +152,7 @@ function decryptMeta(ciphertextBase64, keyBase64, ivBase64){
 }
 
 function showDate(timestamp, showDateValues){
-    let months = ["Januar", "Februar", "März", "April", "Mai", "Juni","Juli", "August", "September", "Oktober", "November", "Dezember"];
+    let months = ["Jan.", "Feb.", "März", "Apr.", "Mai", "Juni","Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez."];
     let date = new Date(timestamp);
     if(showDateValues === 4){
         return `${date.getFullYear()}`;
