@@ -364,12 +364,12 @@ body.hover .videoItem:hover {
 .videoItem-cell.text h3.title {
     margin: 0;
     font-size: 0.9rem;
-    max-height: 36px;
+    max-height: 34px;
     overflow: hidden;
 }
 
 .videoItem-cell.text .description {
-    max-height: 82px;
+    max-height: 66px;
     overflow: hidden;
     font-size: 0.8rem;
 }
@@ -566,11 +566,11 @@ button:disabled {
 
     .videoItem-cell.text h3.title {
         font-size: 1.1rem;
-        max-height: 43px;
+        max-height: 42px;
     }
 
     .videoItem-cell.text .description {
-        height: 92px;
+        max-height: 92px;
         font-size: 1rem;
     }
 
