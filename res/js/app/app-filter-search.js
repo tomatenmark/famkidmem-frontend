@@ -101,7 +101,7 @@ function isFilterTypeMatch(list, map, attrList){
     return personFilter;
 }
 
-//hack: was not updated in android chrome
+//hack: search was not updated in android chrome
 function updateSearch(){
     app.search = document.getElementById('search').value;
 }
