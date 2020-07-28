@@ -31,7 +31,8 @@ const data = {
     search: '',
     filterOpen: false,
     filters: false,
-    insider: false
+    insider: false,
+    backendError: false
 };
 
 const methods = {

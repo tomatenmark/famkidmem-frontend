@@ -3,13 +3,17 @@ function handleRequestSuccess(response, callback, lastStep) {
     if(lastStep){
         stopProcessingAnimation();
     }
+    app.backendError = false;
     callback(response.data);
 }
 
 function handleRequestError(response) {
     console.error("Request-Error: responseObject: " + JSON.stringify(response));
     if(response.status === 502){
+        app.backendError = true;
+        stopProcessingAnimation();
         showError('Das Backend ist derzeit nicht erreichbar. Bitte versuche es später erneut.');
+        return;
     } else if(response.data.details === 'Username or Password is wrong') {
         showError('Das hat nicht geklappt. Falscher Benutzername und/oder falsches Passwort');
     } else if(response.data.details.indexOf('Too much invalid login attempts') >= 0) {
@@ -21,6 +25,7 @@ function handleRequestError(response) {
         showError('Da ist etwas schief gelaufen. Details zum Fehler wurden in die Zwischenablage kopiert. ' +
             'Füge sie in WhatsApp ein und schicke sie mir, damit ich der Sache auf den Grund gehen kann.');
     }
+    app.backendError = false;
     stopProcessingAnimation();
 }
 

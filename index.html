@@ -49,6 +49,11 @@
 
         <main>
 
+            <!-- backendError -->
+            <div v-if="backendError">
+                <button type="button" onclick="location.reload();">Erneut versuchen</button>
+            </div>
+
             <!-- login -->
             <div v-if="view === 'login' && !insider">
                 <input type="text" placeholder="Benutzername" v-model="username">
