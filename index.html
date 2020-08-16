@@ -50,7 +50,7 @@
         <main>
 
             <!-- backendError -->
-            <div v-if="backendError">
+            <div v-if="backendError && !insider">
                 <button type="button" onclick="location.reload();">Erneut versuchen</button>
             </div>
 
