@@ -4,7 +4,7 @@ const loginPepper = "ee/ZUOqS8i30+TKZ5mU9dA==";
 
 const registerCallback = function(){
     userModificationCallback('Erfolgreich registriert. Viel Spaß mit den Family Moments');
-    self.location.replace('#');
+    self.location.replace('#view');
     logout(false);
 };
 
@@ -16,7 +16,7 @@ const changeUsernameCallback = function(){
 
 const changePasswordCallback = function(){
     userModificationCallback('Passwort erfolgreich geändert.');
-    self.location.replace('#');
+    self.location.replace('#view');
     logout(true);
 };
 

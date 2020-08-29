@@ -141,7 +141,7 @@ function playVideo(title){
 function closeVideo(){
     app.video = false;
     document.getElementById('video').src = '';
-    self.location.href = '#';
+    self.location.href = '#view';
     document.title = 'Family Moments';
     app.videoTitle = '';
 }
@@ -165,7 +165,7 @@ function showDate(timestamp, showDateValues){
 
 function showDuration(durationInSeconds){
     if(durationInSeconds < 60){
-        return `0:${durationInSeconds}`;
+        return `0:${durationInSeconds}`.replace(/:([1-9])$/g, ':0$1');
     }
     let minutes = Math.floor(durationInSeconds/60);
     let seconds = durationInSeconds % 60;
