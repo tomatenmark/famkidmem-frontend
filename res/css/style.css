@@ -483,6 +483,7 @@ input#search {
     position: absolute;
     top: 0;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 #filter-open span, #filter-close span {
