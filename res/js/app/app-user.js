@@ -1,6 +1,12 @@
 
 const loginPepper = "ee/ZUOqS8i30+TKZ5mU9dA==";
 
+function togglePasswordVisible(fieldId){
+    let caretPosition = document.getElementById(fieldId).selectionStart;
+    app.passwordVisible = !app.passwordVisible;
+    document.getElementById(fieldId).focus();
+    setTimeout(`document.getElementById('${fieldId}').setSelectionRange(${caretPosition}, ${caretPosition})`, 10);
+}
 
 const registerCallback = function(){
     userModificationCallback('Erfolgreich registriert. Viel Spaß mit den Family Moments');
@@ -120,6 +126,10 @@ function createDataForChangePassword(){
 }
 
 function checkPassword(){
+    if(!app.passwordVisible && app.password !== app.passwordRepeat){
+        showError('Die Passwörter müssen übereinstimmen.');
+        return false;
+    }
     let outOfFour = 0;
     outOfFour += new RegExp("^.*[a-zäöüß]+.*$").test(app.password) ? 1 : 0;
     outOfFour += new RegExp("^.*[A-ZÄÖÜ]+.*$").test(app.password) ? 1 : 0;
@@ -127,10 +137,6 @@ function checkPassword(){
     outOfFour += new RegExp("^.*[^a-zA-Z0-9äöüÄÖÜß]+.*$").test(app.password) ? 1 : 0;
     if(app.password.length < 10 || outOfFour < 3){
         showError('Das Passwort muss mindestens 10 Zeichen lang sein. Es muss mindestens 3 der 4 Zeichen-Arten (Großbuchstaben, Kleinbuchstaben, Zahlen, Sonderzeichen) enthalten.');
-        return false;
-    }
-    if(app.password !== app.passwordRepeat){
-        showError('Die Passwörter müssen übereinstimmen.');
         return false;
     }
     return true;

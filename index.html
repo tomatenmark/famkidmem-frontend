@@ -57,7 +57,12 @@
             <!-- login -->
             <div v-if="view === 'login' && !insider">
                 <input type="text" placeholder="Benutzername" v-model="username">
-                <input type="password" placeholder="Passwort" v-model="password">
+                <div class="passwordContainer">
+                    <input v-bind:type="passwordVisible ? 'text' : 'password'" placeholder="Passwort" v-model="password" id="passwordLogin">
+                    <div class="passwordVisibleToggle" @click="togglePasswordVisible('passwordLogin')">
+                        <span v-bind:class="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></span>
+                    </div>
+                </div>
                 <label class="container">Eingeloggt bleiben
                     <input type="checkbox" v-model="permanentLogin">
                     <span class="checkMark"></span>
@@ -69,8 +74,13 @@
             <!-- init/register -->
             <div v-if="view === 'init' && !insider">
                 <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
-                <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
-                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
+                <div class="passwordContainer">
+                    <input v-bind:type="passwordVisible ? 'text' : 'password'" placeholder="Gewünschtes Passwort" v-model="password" id="passwordInit">
+                    <div class="passwordVisibleToggle" @click="togglePasswordVisible('passwordInit')">
+                        <span v-bind:class="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></span>
+                    </div>
+                </div>
+                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat" v-if="!passwordVisible">
                 <button type="button" @click="register()"><span class="fa fa-user-plus"></span> Registrieren</button>
             </div>
 
@@ -83,8 +93,13 @@
 
             <!-- changePassword -->
             <div v-if="(view === 'changePassword' || view === 'reset') && !insider">
-                <input type="password" placeholder="Gewünschtes Passwort" v-model="password">
-                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat">
+                <div class="passwordContainer">
+                    <input v-bind:type="passwordVisible ? 'text' : 'password'" placeholder="Gewünschtes Passwort" v-model="password" id="passwordChange">
+                    <div class="passwordVisibleToggle" @click="togglePasswordVisible('passwordChange')">
+                        <span v-bind:class="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></span>
+                    </div>
+                </div>
+                <input type="password" placeholder="Passwort wiederholen" v-model="passwordRepeat" v-if="!passwordVisible">
                 <button type="button" @click="changePassword()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()" v-if="view === 'changePassword'">Abbrechen</button>
             </div>

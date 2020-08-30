@@ -32,7 +32,8 @@ const data = {
     filterOpen: false,
     filters: false,
     insider: false,
-    backendError: false
+    backendError: false,
+    passwordVisible: false
 };
 
 const methods = {
@@ -60,7 +61,8 @@ const methods = {
     hasPersonFilter: function () { return hasPersonFilter()},
     hasYearFilter: function () { return hasYearFilter()},
     isMatch: function (designator) { return isMatch(designator)},
-    updateSearch: function () {updateSearch()}
+    updateSearch: function () {updateSearch()},
+    togglePasswordVisible: function (fieldId) {togglePasswordVisible(fieldId)}
 };
 
 app = new Vue({
