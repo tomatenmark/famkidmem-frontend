@@ -50,8 +50,8 @@
         <main>
 
             <!-- backendError -->
-            <div v-if="backendError && !insider">
-                <button type="button" onclick="location.reload();">Erneut versuchen</button>
+            <div v-if="backendError" class="error">
+                Das Backend ist derzeit nicht erreichbar. Versuche es später nochmal.
             </div>
 
             <!-- login -->

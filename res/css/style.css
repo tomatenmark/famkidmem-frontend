@@ -119,7 +119,7 @@ main {
     font-size: 1.3rem;
 }
 
-#dialogElement > div.error {
+.error {
     color: #a70000;
 }
 

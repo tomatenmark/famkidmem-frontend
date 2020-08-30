@@ -12,7 +12,7 @@ function handleRequestError(response) {
     if(response.status === 502){
         app.backendError = true;
         stopProcessingAnimation();
-        showError('Das Backend ist derzeit nicht erreichbar. Bitte versuche es später erneut.');
+        setTimeout('self.location.reload()', 5000);
         return;
     } else if(response.data.details === 'Username or Password is wrong') {
         showError('Das hat nicht geklappt. Falscher Benutzername und/oder falsches Passwort');
