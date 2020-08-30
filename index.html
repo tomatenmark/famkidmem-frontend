@@ -43,7 +43,7 @@
                 <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangeUsername(); insider=false;"><span class="fa fa-i-cursor"></span>&nbsp;&ensp;Benutzername ändern</div>
                 <div v-if="loggedIn && view !== 'init' && view !== 'reset'" @click="prepareChangePassword(); insider=false;"><span class="fa fa-key"></span> Passwort ändern</div>
                 <div v-if="!loggedIn" @click="showInfo('Sage mir bescheid. Dann schicke ich dir einen entsprechenden Link.'); menuOpen=false;"><span class="fa fa-user-plus"></span> Registrieren</div>
-                <div @click="insider=true; menuOpen=false;"><span class="fa fa-info-circle"></span> Insider</div>
+                <div @click="insider=true; menuOpen=false;" v-if="!backendError"><span class="fa fa-info-circle"></span> Insider</div>
             </div>
         </header>
 
@@ -172,12 +172,12 @@
                 <div>
                     <strong>Sicherheitsarchitektur</strong><br>
                     17 Seiten über die Sicherheit von Family Moments.<br>
-                    Erfahrt mehr über die Anforderungen an die Sicherheit und deren technische Umsetzung.<br>
+                    Erfahre mehr über die Anforderungen an die Sicherheit und deren technische Umsetzung.<br>
                     <button onclick="window.open('https://cloud.markherrmann.de/index.php/s/fm-sicherheitsarchitektur');">Jetzt lesen</button>
                 </div>
                 <div>
                     <strong>Code</strong><br>
-                    Der komplette Code von Family Moments ist open-source. Seht ihn euch an.<br>
+                    Der komplette Code von Family Moments ist open-source. Sieh ihn dir an.<br>
                     <button onclick="window.open('https://github.com/tomatenmark/famkidmem-backend');">Server</button>
                     <button onclick="window.open('https://github.com/tomatenmark/famkidmem-frontend');">Website</button>
                     <button onclick="window.open('https://github.com/tomatenmark/famkidmem-ccms');">Admin / Editor</button>
