@@ -62,6 +62,7 @@ const methods = {
     hasYearFilter: function () { return hasYearFilter()},
     isMatch: function (designator) { return isMatch(designator)},
     updateSearch: function () {updateSearch()},
+    fixUsername: function () {fixUsername()},
     togglePasswordVisible: function (fieldId) {togglePasswordVisible(fieldId)}
 };
 

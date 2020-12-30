@@ -82,7 +82,7 @@ function setLogin(data){
 }
 
 function register(){
-    if(!checkPassword()){
+    if(!checkPassword() || !checkUsername()){
         return;
     }
     startProcessingAnimation();
@@ -94,6 +94,9 @@ function register(){
 
 
 function changeUsername(){
+    if(!checkUsername()){
+        return;
+    }
     startProcessingAnimation();
     const data = {
         accessToken: app.accessToken,
@@ -140,6 +143,20 @@ function checkPassword(){
         return false;
     }
     return true;
+}
+
+function checkUsername(){
+    const badChars = new RegExp("[^a-zA-Z0-9._=\\-]").test(app.username);
+    if(badChars){
+        showError('Der Benutzername darf nur Buchstaben, Zahlen, Punkte, Striche und/oder = enthalten. (a-zA-Z0-9_-.=)');
+        return false;
+    }
+    return true;
+}
+
+function fixUsername(){
+    const fixed = app.username.replace(/[^a-zA-Z0-9._=\-]/g, '_');
+    app.username = fixed;
 }
 
 function logout(global){

@@ -73,7 +73,7 @@
 
             <!-- init/register -->
             <div v-if="view === 'init' && !insider">
-                <input type="text" placeholder="Gewünschter Benutzername" v-model="username">
+                <input type="text" placeholder="Gewünschter Benutzername" v-model="username" @input="fixUsername()">
                 <div class="passwordContainer">
                     <input v-bind:type="passwordVisible ? 'text' : 'password'" placeholder="Gewünschtes Passwort" v-model="password" id="passwordInit">
                     <div class="passwordVisibleToggle" @click="togglePasswordVisible('passwordInit')">
@@ -86,7 +86,7 @@
 
             <!-- changeUsername -->
             <div v-if="view === 'changeUsername' && !insider">
-                <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername">
+                <input type="text" placeholder="Gewünschter Benutzername" v-model="newUsername"  @input="fixUsername()">
                 <button type="button" @click="changeUsername()"><span class="fa fa-user"></span> Jetzt ändern</button>
                 <button type="button" @click="clearSensitiveDataAndBackToIndexView()">Abbrechen</button>
             </div>
