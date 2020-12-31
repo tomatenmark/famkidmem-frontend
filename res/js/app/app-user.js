@@ -51,7 +51,7 @@ function getUserKey(callback){
 
 function login(){
     startProcessingAnimation();
-    const loginHash = createLoginHash();
+    const loginHash = createLoginHash(app.username);
     const data = {
         username: app.username,
         loginHash: loginHash,
@@ -64,11 +64,12 @@ function setLogin(data){
     if(data.message === 'ok'){
         app.accessToken = data.accessToken;
         app.passwordKeySalt = data.passwordKeySalt;
-        app.passwordKey = createPasswordKey();
+        app.passwordKey = createPasswordKey(app.password);
         const storage = app.permanentLogin ? localStorage : sessionStorage;
         storage.setItem('accessToken', app.accessToken);
         storage.setItem('username', app.username);
         storage.setItem('passwordKey', app.passwordKey);
+        storage.setItem('passwordKeySalt', app.passwordKeySalt);
         app.password = '';
         if(app.view === 'init'){
             app.username = '';
@@ -82,7 +83,7 @@ function setLogin(data){
 }
 
 function register(){
-    if(!checkPassword() || !checkUsername()){
+    if(!checkPassword() || !checkUsername(app.username)){
         return;
     }
     startProcessingAnimation();
@@ -94,19 +95,20 @@ function register(){
 
 
 function changeUsername(){
-    if(!checkUsername()){
+    if(!checkUsername(app.newUsername) || !checkOldPassword(app.password)){
         return;
     }
     startProcessingAnimation();
     const data = {
         accessToken: app.accessToken,
-        newUsername: app.newUsername
+        newUsername: app.newUsername,
+        newLoginHash: createLoginHash(app.newUsername)
     };
     doPostRequest('user/change/username', data, changeUsernameCallback, true);
 }
 
 function changePassword(){
-    if(!checkPassword()){
+    if(!checkPassword() || !checkOldPassword(app.oldPassword)){
         return;
     }
     startProcessingAnimation();
@@ -117,9 +119,9 @@ function changePassword(){
 
 function createDataForChangePassword(){
     const passwordKeyOld = app.passwordKey;
-    const loginHash = createLoginHash();
+    const loginHash = createLoginHash(app.username);
     app.passwordKeySalt = createPasswordKeySalt();
-    const passwordKey = createPasswordKey();
+    const passwordKey = createPasswordKey(app.password);
     const userKey = createUserKey(passwordKeyOld, passwordKey);
     return {
         newLoginHash: loginHash,
@@ -145,8 +147,19 @@ function checkPassword(){
     return true;
 }
 
-function checkUsername(){
-    const badChars = new RegExp("[^a-zA-Z0-9._=\\-]").test(app.username);
+function checkOldPassword(oldPassword){
+    const keyToCheck = createPasswordKey(oldPassword);
+    const trueKey = app.passwordKey;
+    const valid = trueKey === keyToCheck;
+    if(!valid){
+        showError('Falsches Passwort');
+        return false;
+    }
+    return true;
+}
+
+function checkUsername(username){
+    const badChars = new RegExp("[^a-zA-Z0-9._=\\-]").test(username);
     if(badChars){
         showError('Der Benutzername darf nur Buchstaben, Zahlen, Punkte, Striche und/oder = enthalten. (a-zA-Z0-9_-.=)');
         return false;
@@ -157,6 +170,11 @@ function checkUsername(){
 function fixUsername(){
     const fixed = app.username.replace(/[^a-zA-Z0-9._=\-]/g, '_');
     app.username = fixed;
+}
+
+function fixNewUsername(){
+    const fixed = app.newUsername.replace(/[^a-zA-Z0-9._=\-]/g, '_');
+    app.newUsername = fixed;
 }
 
 function logout(global){
@@ -178,6 +196,7 @@ function setLogout(){
     app.passwordKey = '';
     app.username = '';
     app.accessToken = '';
+    app.oldPassword = '';
     clearSensitiveData();
     clearIndex();
 }
@@ -192,7 +211,6 @@ function clearSensitiveData(){
     app.password = '';
     app.passwordRepeat = '';
     app.userKey = '';
-    app.passwordKeySalt = '';
 }
 
 function userModificationCallback(text){
@@ -209,9 +227,9 @@ function createUserKey(passwordKeyOldBase64, passwordKeyBase64){
     return CryptoJS.enc.Base64.stringify(newUserKey.ciphertext);
 }
 
-function createPasswordKey(){
+function createPasswordKey(passwordStr){
     const passwordKeySalt =  CryptoJS.enc.Base64.parse(app.passwordKeySalt);
-    const password = CryptoJS.enc.Utf8.parse(app.password);
+    const password = CryptoJS.enc.Utf8.parse(passwordStr);
     const passwordKey = CryptoJS.PBKDF2(password, passwordKeySalt, {keySize: 128 / 32, iterations: 2500});
     return CryptoJS.enc.Base64.stringify(passwordKey);
 }
@@ -222,9 +240,9 @@ function createPasswordKeySalt(){
     return arrayToBase64(randomArray);
 }
 
-function createLoginHash(){
+function createLoginHash(username){
     const secret = CryptoJS.enc.Utf8.parse(app.password);
-    const loginSpice = CryptoJS.enc.Utf8.parse(loginPepper+app.username);
+    const loginSpice = CryptoJS.enc.Utf8.parse(loginPepper+username);
     const loginHash = CryptoJS.PBKDF2(secret, loginSpice, {keySize: 128 / 32, iterations: 1250});
     return CryptoJS.enc.Base64.stringify(loginHash);
 }

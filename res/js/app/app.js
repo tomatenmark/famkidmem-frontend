@@ -9,6 +9,7 @@ const data = {
     username: '',
     newUsername: '',
     password: '',
+    oldPassword: '',
     passwordRepeat:'',
     accessToken: '',
     passwordKey: '',
@@ -63,6 +64,7 @@ const methods = {
     isMatch: function (designator) { return isMatch(designator)},
     updateSearch: function () {updateSearch()},
     fixUsername: function () {fixUsername()},
+    fixNewUsername: function () {fixNewUsername()},
     togglePasswordVisible: function (fieldId) {togglePasswordVisible(fieldId)}
 };
 
@@ -98,6 +100,7 @@ function initView(hashKey){
         app.accessToken = storage.getItem('accessToken');
         app.username = storage.getItem('username');
         app.passwordKey = storage.getItem('passwordKey');
+        app.passwordKeySalt = storage.getItem('passwordKeySalt');
         app.permanentLogin = loggedInPermanent;
     }
 
